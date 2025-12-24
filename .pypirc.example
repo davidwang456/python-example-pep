@@ -1,0 +1,18 @@
+# PyPI 配置文件示例
+# 将此文件复制为 ~/.pypirc 并填入你的实际配置信息
+
+[distutils]
+index-servers =
+    pypi
+    private
+
+[pypi]
+# 公共 PyPI（如果需要）
+# username = your_username
+# password = your_password
+
+[private]
+repository = https://your-private-pypi.com/simple/
+username = your_username
+password = your_password
+
