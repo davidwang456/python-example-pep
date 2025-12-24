@@ -1,4 +1,4 @@
-"""工具函数模块。"""
+"""Utility functions module."""
 
 from python_example_pep.utils.utils import (
     ensure_dir,

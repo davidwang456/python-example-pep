@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "python-example-pep"
 version = "0.1.0"
-description = "一个遵循 PEP 517/518/621 标准的现代 Python 项目示例"
+description = "A modern Python project example following PEP 517/518/621 standards"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
@@ -26,7 +26,12 @@ classifiers = [
 ]
 
 dependencies = [
-    # 在这里添加项目依赖
+    "requests>=2.31.0",
+    "python-dateutil>=2.8.2",
+    "pytz>=2023.3",
+    "click>=8.1.7",
+    "pyyaml>=6.0.1",
+    "jsonschema>=4.20.0",
 ]
 
 [project.optional-dependencies]

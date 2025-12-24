@@ -1,4 +1,4 @@
-"""示例模块，展示项目的基本功能。"""
+"""Example module demonstrating basic project functionality."""
 
 from python_example_pep.example.example import add, hello
 

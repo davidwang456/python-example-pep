@@ -1,15 +1,15 @@
-"""示例模块，展示项目的基本功能。"""
+"""Example module demonstrating basic project functionality."""
 
 
 def hello(name: str = "World") -> str:
     """
-    返回一个问候语。
+    Return a greeting message.
 
     Args:
-        name: 要问候的名字，默认为 "World"
+        name: Name to greet, defaults to "World"
 
     Returns:
-        问候语字符串
+        Greeting string
 
     Examples:
         >>> hello()
@@ -22,14 +22,14 @@ def hello(name: str = "World") -> str:
 
 def add(a: int, b: int) -> int:
     """
-    两个整数相加。
+    Add two integers.
 
     Args:
-        a: 第一个整数
-        b: 第二个整数
+        a: First integer
+        b: Second integer
 
     Returns:
-        两个整数的和
+        Sum of the two integers
 
     Examples:
         >>> add(2, 3)

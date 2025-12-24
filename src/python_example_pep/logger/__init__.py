@@ -1,4 +1,4 @@
-"""日志记录模块。"""
+"""Logging module."""
 
 from python_example_pep.logger.logger import LogLevel, Logger, get_logger
 

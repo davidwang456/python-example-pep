@@ -1,4 +1,4 @@
-"""一个遵循 PEP 517/518/621 标准的现代 Python 项目示例。"""
+"""A modern Python project example following PEP 517/518/621 standards."""
 
 __version__ = "0.1.0"
 

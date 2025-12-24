@@ -1,4 +1,4 @@
-"""计算器模块。"""
+"""Calculator module."""
 
 from python_example_pep.calculator.calculator import (
     Calculator,

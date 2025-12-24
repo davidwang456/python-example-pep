@@ -1,4 +1,4 @@
-"""工具函数模块。"""
+"""Utility functions module."""
 
 import os
 from pathlib import Path
@@ -7,16 +7,16 @@ from typing import List, Optional
 
 def ensure_dir(path: str) -> Path:
     """
-    确保目录存在，如果不存在则创建。
+    Ensure directory exists, create if it doesn't.
 
     Args:
-        path: 目录路径
+        path: Directory path
 
     Returns:
-        Path 对象
+        Path object
 
     Raises:
-        OSError: 如果无法创建目录
+        OSError: If directory cannot be created
     """
     dir_path = Path(path)
     dir_path.mkdir(parents=True, exist_ok=True)
@@ -25,32 +25,32 @@ def ensure_dir(path: str) -> Path:
 
 def get_file_size(file_path: str) -> int:
     """
-    获取文件大小（字节）。
+    Get file size in bytes.
 
     Args:
-        file_path: 文件路径
+        file_path: File path
 
     Returns:
-        文件大小（字节）
+        File size in bytes
 
     Raises:
-        FileNotFoundError: 如果文件不存在
-        OSError: 如果无法访问文件
+        FileNotFoundError: If file does not exist
+        OSError: If file cannot be accessed
     """
     if not os.path.exists(file_path):
-        raise FileNotFoundError(f"文件不存在: {file_path}")
+        raise FileNotFoundError(f"File not found: {file_path}")
     return os.path.getsize(file_path)
 
 
 def split_path(path: str) -> List[str]:
     """
-    分割路径为各个组成部分。
+    Split path into its components.
 
     Args:
-        path: 文件或目录路径
+        path: File or directory path
 
     Returns:
-        路径组成部分的列表
+        List of path components
 
     Examples:
         >>> split_path("/usr/local/bin")
@@ -70,26 +70,26 @@ def split_path(path: str) -> List[str]:
 
 def normalize_path(path: str) -> str:
     """
-    规范化路径字符串。
+    Normalize path string.
 
     Args:
-        path: 原始路径
+        path: Original path
 
     Returns:
-        规范化后的路径
+        Normalized path
     """
     return str(Path(path).resolve())
 
 
 def join_paths(*paths: str) -> str:
     """
-    连接多个路径。
+    Join multiple paths.
 
     Args:
-        *paths: 要连接的路径部分
+        *paths: Path parts to join
 
     Returns:
-        连接后的路径
+        Joined path
 
     Examples:
         >>> join_paths("usr", "local", "bin")

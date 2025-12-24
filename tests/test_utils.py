@@ -1,4 +1,4 @@
-"""工具函数模块的测试。"""
+"""Tests for utility functions module."""
 
 import os
 import tempfile
@@ -10,10 +10,10 @@ from python_example_pep import utils
 
 
 class TestEnsureDir:
-    """测试 ensure_dir 函数。"""
+    """Tests for ensure_dir function."""
 
     def test_create_new_directory(self):
-        """测试创建新目录。"""
+        """Test creating new directory."""
         with tempfile.TemporaryDirectory() as tmpdir:
             new_dir = os.path.join(tmpdir, "new", "nested", "dir")
             result = utils.ensure_dir(new_dir)
@@ -22,7 +22,7 @@ class TestEnsureDir:
             assert result.is_dir()
 
     def test_existing_directory(self):
-        """测试已存在的目录。"""
+        """Test existing directory."""
         with tempfile.TemporaryDirectory() as tmpdir:
             result1 = utils.ensure_dir(tmpdir)
             result2 = utils.ensure_dir(tmpdir)
@@ -31,10 +31,10 @@ class TestEnsureDir:
 
 
 class TestGetFileSize:
-    """测试 get_file_size 函数。"""
+    """Tests for get_file_size function."""
 
     def test_existing_file(self):
-        """测试获取已存在文件的大小。"""
+        """Test getting size of existing file."""
         with tempfile.NamedTemporaryFile(mode="w", delete=False) as f:
             content = "test content"
             f.write(content)
@@ -47,65 +47,64 @@ class TestGetFileSize:
             os.unlink(temp_path)
 
     def test_nonexistent_file(self):
-        """测试不存在的文件。"""
+        """Test nonexistent file."""
         with pytest.raises(FileNotFoundError):
             utils.get_file_size("/nonexistent/file/path")
 
 
 class TestSplitPath:
-    """测试 split_path 函数。"""
+    """Tests for split_path function."""
 
     def test_unix_path(self):
-        """测试 Unix 路径。"""
+        """Test Unix path."""
         result = utils.split_path("/usr/local/bin")
         assert "usr" in result
         assert "local" in result
         assert "bin" in result
 
     def test_relative_path(self):
-        """测试相对路径。"""
+        """Test relative path."""
         result = utils.split_path("a/b/c")
         assert result == ["a", "b", "c"]
 
     def test_single_component(self):
-        """测试单个组件。"""
+        """Test single component."""
         result = utils.split_path("filename")
         assert result == ["filename"]
 
 
 class TestNormalizePath:
-    """测试 normalize_path 函数。"""
+    """Tests for normalize_path function."""
 
     def test_normalize_relative_path(self):
-        """测试规范化相对路径。"""
+        """Test normalizing relative path."""
         result = utils.normalize_path(".")
         assert isinstance(result, str)
         assert os.path.isabs(result)
 
     def test_normalize_absolute_path(self):
-        """测试规范化绝对路径。"""
+        """Test normalizing absolute path."""
         with tempfile.TemporaryDirectory() as tmpdir:
             result = utils.normalize_path(tmpdir)
             assert result == os.path.abspath(tmpdir)
 
 
 class TestJoinPaths:
-    """测试 join_paths 函数。"""
+    """Tests for join_paths function."""
 
     def test_join_multiple_paths(self):
-        """测试连接多个路径。"""
+        """Test joining multiple paths."""
         result = utils.join_paths("usr", "local", "bin")
         assert "usr" in result
         assert "local" in result
         assert "bin" in result
 
     def test_join_single_path(self):
-        """测试单个路径。"""
+        """Test single path."""
         result = utils.join_paths("usr")
         assert result == "usr"
 
     def test_join_empty(self):
-        """测试空路径。"""
+        """Test empty path."""
         result = utils.join_paths()
         assert result == "."
-

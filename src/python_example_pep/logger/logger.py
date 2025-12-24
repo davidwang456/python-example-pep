@@ -1,4 +1,4 @@
-"""日志记录模块。"""
+"""Logging module."""
 
 import logging
 import sys
@@ -8,7 +8,7 @@ from typing import Optional
 
 
 class LogLevel(Enum):
-    """日志级别枚举。"""
+    """Log level enumeration."""
 
     DEBUG = logging.DEBUG
     INFO = logging.INFO
@@ -18,7 +18,7 @@ class LogLevel(Enum):
 
 
 class Logger:
-    """日志记录器类。"""
+    """Logger class."""
 
     def __init__(
         self,
@@ -27,30 +27,30 @@ class Logger:
         log_file: Optional[str] = None,
     ):
         """
-        初始化日志记录器。
+        Initialize logger.
 
         Args:
-            name: 日志记录器名称
-            level: 日志级别
-            log_file: 日志文件路径（可选）
+            name: Logger name
+            level: Log level
+            log_file: Log file path (optional)
         """
         self.logger = logging.getLogger(name)
         self.logger.setLevel(level.value)
         self.logger.handlers.clear()
 
-        # 创建格式化器
+        # Create formatter
         formatter = logging.Formatter(
             "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
         )
 
-        # 控制台处理器
+        # Console handler
         console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setLevel(level.value)
         console_handler.setFormatter(formatter)
         self.logger.addHandler(console_handler)
 
-        # 文件处理器（如果指定）
+        # File handler (if specified)
         if log_file:
             file_path = Path(log_file)
             file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -61,55 +61,55 @@ class Logger:
 
     def debug(self, message: str) -> None:
         """
-        记录 DEBUG 级别日志。
+        Log DEBUG level message.
 
         Args:
-            message: 日志消息
+            message: Log message
         """
         self.logger.debug(message)
 
     def info(self, message: str) -> None:
         """
-        记录 INFO 级别日志。
+        Log INFO level message.
 
         Args:
-            message: 日志消息
+            message: Log message
         """
         self.logger.info(message)
 
     def warning(self, message: str) -> None:
         """
-        记录 WARNING 级别日志。
+        Log WARNING level message.
 
         Args:
-            message: 日志消息
+            message: Log message
         """
         self.logger.warning(message)
 
     def error(self, message: str) -> None:
         """
-        记录 ERROR 级别日志。
+        Log ERROR level message.
 
         Args:
-            message: 日志消息
+            message: Log message
         """
         self.logger.error(message)
 
     def critical(self, message: str) -> None:
         """
-        记录 CRITICAL 级别日志。
+        Log CRITICAL level message.
 
         Args:
-            message: 日志消息
+            message: Log message
         """
         self.logger.critical(message)
 
     def set_level(self, level: LogLevel) -> None:
         """
-        设置日志级别。
+        Set log level.
 
         Args:
-            level: 新的日志级别
+            level: New log level
         """
         self.logger.setLevel(level.value)
         for handler in self.logger.handlers:
@@ -118,14 +118,14 @@ class Logger:
 
 def get_logger(name: str, level: LogLevel = LogLevel.INFO) -> Logger:
     """
-    获取日志记录器实例。
+    Get logger instance.
 
     Args:
-        name: 日志记录器名称
-        level: 日志级别
+        name: Logger name
+        level: Log level
 
     Returns:
-        Logger 实例
+        Logger instance
     """
     return Logger(name, level)
 

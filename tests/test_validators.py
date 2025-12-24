@@ -1,4 +1,4 @@
-"""数据验证模块的测试。"""
+"""Tests for data validation module."""
 
 import pytest
 
@@ -6,10 +6,10 @@ from python_example_pep import validators
 
 
 class TestValidateEmail:
-    """测试 validate_email 函数。"""
+    """Tests for validate_email function."""
 
     def test_valid_emails(self):
-        """测试有效的邮箱地址。"""
+        """Test valid email addresses."""
         valid_emails = [
             "test@example.com",
             "user.name@example.co.uk",
@@ -20,7 +20,7 @@ class TestValidateEmail:
             assert validators.validate_email(email) is True
 
     def test_invalid_emails(self):
-        """测试无效的邮箱地址。"""
+        """Test invalid email addresses."""
         invalid_emails = [
             "invalid-email",
             "@example.com",
@@ -34,10 +34,10 @@ class TestValidateEmail:
 
 
 class TestValidatePhone:
-    """测试 validate_phone 函数。"""
+    """Tests for validate_phone function."""
 
     def test_valid_phones(self):
-        """测试有效的手机号码。"""
+        """Test valid phone numbers."""
         valid_phones = [
             "13800138000",
             "15912345678",
@@ -48,7 +48,7 @@ class TestValidatePhone:
             assert validators.validate_phone(phone) is True
 
     def test_invalid_phones(self):
-        """测试无效的手机号码。"""
+        """Test invalid phone numbers."""
         invalid_phones = [
             "123456",
             "12345678901",
@@ -62,10 +62,10 @@ class TestValidatePhone:
 
 
 class TestValidateUrl:
-    """测试 validate_url 函数。"""
+    """Tests for validate_url function."""
 
     def test_valid_urls(self):
-        """测试有效的 URL。"""
+        """Test valid URLs."""
         valid_urls = [
             "https://www.example.com",
             "http://example.com",
@@ -76,7 +76,7 @@ class TestValidateUrl:
             assert validators.validate_url(url) is True
 
     def test_invalid_urls(self):
-        """测试无效的 URL。"""
+        """Test invalid URLs."""
         invalid_urls = [
             "not-a-url",
             "www.example.com",
@@ -88,26 +88,26 @@ class TestValidateUrl:
 
 
 class TestValidateLength:
-    """测试 validate_length 函数。"""
+    """Tests for validate_length function."""
 
     def test_valid_lengths(self):
-        """测试有效的长度。"""
+        """Test valid lengths."""
         assert validators.validate_length("hello", min_length=3, max_length=10) is True
         assert validators.validate_length("hi", min_length=2) is True
         assert validators.validate_length("test", max_length=10) is True
 
     def test_invalid_lengths(self):
-        """测试无效的长度。"""
+        """Test invalid lengths."""
         assert validators.validate_length("hi", min_length=3) is False
         assert validators.validate_length("very long text", max_length=5) is False
 
     def test_edge_cases(self):
-        """测试边界情况。"""
+        """Test edge cases."""
         assert validators.validate_length("", min_length=0) is True
         assert validators.validate_length("", min_length=1) is False
 
     def test_invalid_parameters(self):
-        """测试无效参数。"""
+        """Test invalid parameters."""
         with pytest.raises(ValueError):
             validators.validate_length("test", min_length=-1)
 
@@ -116,21 +116,20 @@ class TestValidateLength:
 
 
 class TestValidateRange:
-    """测试 validate_range 函数。"""
+    """Tests for validate_range function."""
 
     def test_valid_ranges(self):
-        """测试有效的范围。"""
+        """Test valid ranges."""
         assert validators.validate_range(5.0, 0.0, 10.0) is True
         assert validators.validate_range(0.0, 0.0, 10.0) is True
         assert validators.validate_range(10.0, 0.0, 10.0) is True
 
     def test_invalid_ranges(self):
-        """测试无效的范围。"""
+        """Test invalid ranges."""
         assert validators.validate_range(15.0, 0.0, 10.0) is False
         assert validators.validate_range(-1.0, 0.0, 10.0) is False
 
     def test_invalid_parameters(self):
-        """测试无效参数。"""
+        """Test invalid parameters."""
         with pytest.raises(ValueError):
             validators.validate_range(5.0, 10.0, 0.0)
-

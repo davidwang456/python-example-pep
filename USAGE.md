@@ -1,166 +1,165 @@
-# 使用示例
+# Usage Examples
 
-本文档展示如何使用项目的各个模块。
+This document demonstrates how to use the various modules of the project.
 
-> **注意**: 本项目采用多目录模块结构，每个模块位于独立的目录中。
+> **Note**: This project uses a multi-directory module structure, with each module in a separate directory.
 
-## 示例模块 (example)
+## Example Module (example)
 
 ```python
 from python_example_pep import example
 
-# 问候语
+# Greeting
 print(example.hello())  # Hello, World!
 print(example.hello("Python"))  # Hello, Python!
 
-# 简单计算
+# Simple calculation
 result = example.add(2, 3)
 print(result)  # 5
 ```
 
-## 工具函数模块 (utils)
+## Utility Functions Module (utils)
 
 ```python
 from python_example_pep import utils
 from pathlib import Path
 
-# 确保目录存在
+# Ensure directory exists
 dir_path = utils.ensure_dir("./logs/app")
-print(dir_path)  # Path 对象
+print(dir_path)  # Path object
 
-# 获取文件大小
+# Get file size
 try:
     size = utils.get_file_size("README.md")
-    print(f"文件大小: {size} 字节")
+    print(f"File size: {size} bytes")
 except FileNotFoundError:
-    print("文件不存在")
+    print("File not found")
 
-# 分割路径
+# Split path
 parts = utils.split_path("/usr/local/bin")
 print(parts)  # ['usr', 'local', 'bin']
 
-# 规范化路径
+# Normalize path
 normalized = utils.normalize_path("./src")
-print(normalized)  # 绝对路径
+print(normalized)  # Absolute path
 
-# 连接路径
+# Join paths
 joined = utils.join_paths("usr", "local", "bin")
 print(joined)  # 'usr/local/bin'
 ```
 
-## 数据验证模块 (validators)
+## Data Validation Module (validators)
 
 ```python
 from python_example_pep import validators
 
-# 验证邮箱
+# Validate email
 if validators.validate_email("user@example.com"):
-    print("邮箱格式正确")
+    print("Email format is correct")
 
-# 验证手机号
+# Validate phone number
 if validators.validate_phone("13800138000"):
-    print("手机号格式正确")
+    print("Phone number format is correct")
 
-# 验证 URL
+# Validate URL
 if validators.validate_url("https://www.example.com"):
-    print("URL 格式正确")
+    print("URL format is correct")
 
-# 验证字符串长度
+# Validate string length
 if validators.validate_length("hello", min_length=3, max_length=10):
-    print("长度符合要求")
+    print("Length meets requirements")
 
-# 验证数值范围
+# Validate numeric range
 if validators.validate_range(5.0, 0.0, 10.0):
-    print("数值在范围内")
+    print("Value is within range")
 ```
 
-## 计算器模块 (calculator)
+## Calculator Module (calculator)
 
 ```python
 from python_example_pep import calculator
 
-# 使用计算器类
+# Use calculator class
 calc = calculator.Calculator()
 
-# 基本运算
+# Basic operations
 result1 = calc.add(2, 3)  # 5
 result2 = calc.subtract(5, 3)  # 2
 result3 = calc.multiply(2, 3)  # 6
 result4 = calc.divide(6, 2)  # 3.0
 result5 = calc.power(2, 3)  # 8
 
-# 查看计算历史
+# View calculation history
 history = calc.get_history()
 for entry in history:
     print(entry)
 
-# 清空历史
+# Clear history
 calc.clear_history()
 
-# 使用工具函数
+# Use utility functions
 numbers = [1, 2, 3, 4, 5]
 total = calculator.calculate_sum(numbers)  # 15
 average = calculator.calculate_average(numbers)  # 3.0
 ```
 
-## 日志记录模块 (logger)
+## Logging Module (logger)
 
 ```python
 from python_example_pep import logger
 
-# 创建日志记录器
+# Create logger
 log = logger.Logger("my_app", level=logger.LogLevel.INFO)
 
-# 记录不同级别的日志
-log.debug("这是调试信息")
-log.info("这是信息")
-log.warning("这是警告")
-log.error("这是错误")
-log.critical("这是严重错误")
+# Log different levels
+log.debug("This is debug information")
+log.info("This is info")
+log.warning("This is a warning")
+log.error("This is an error")
+log.critical("This is a critical error")
 
-# 更改日志级别
+# Change log level
 log.set_level(logger.LogLevel.DEBUG)
 
-# 使用文件日志
+# Use file logging
 file_logger = logger.Logger(
     "file_app",
     level=logger.LogLevel.INFO,
     log_file="./logs/app.log"
 )
-file_logger.info("这条日志会写入文件")
+file_logger.info("This log will be written to file")
 
-# 使用便捷函数
+# Use convenience function
 app_logger = logger.get_logger("app", level=logger.LogLevel.DEBUG)
-app_logger.info("应用启动")
+app_logger.info("Application started")
 ```
 
-## 完整示例
+## Complete Example
 
 ```python
 from python_example_pep import calculator, logger, validators
 
-# 创建日志记录器
+# Create logger
 log = logger.get_logger("calculator_app")
 
-# 验证输入
+# Validate input
 user_email = "user@example.com"
 if not validators.validate_email(user_email):
-    log.error(f"无效的邮箱: {user_email}")
+    log.error(f"Invalid email: {user_email}")
     exit(1)
 
-log.info(f"用户邮箱验证通过: {user_email}")
+log.info(f"User email validated: {user_email}")
 
-# 使用计算器
+# Use calculator
 calc = calculator.Calculator()
 try:
     result = calc.divide(10, 2)
-    log.info(f"计算结果: {result}")
+    log.info(f"Calculation result: {result}")
 except ZeroDivisionError:
-    log.error("除数不能为 0")
+    log.error("Divisor cannot be 0")
 
-# 显示计算历史
-log.info("计算历史:")
+# Display calculation history
+log.info("Calculation history:")
 for entry in calc.get_history():
     log.info(f"  {entry}")
 ```
-

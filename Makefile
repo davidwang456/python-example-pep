@@ -1,16 +1,16 @@
 .PHONY: help install install-dev test test-cov lint format clean build upload
 
 help:
-	@echo "可用的命令:"
-	@echo "  make install       - 安装项目"
-	@echo "  make install-dev   - 安装开发依赖"
-	@echo "  make test          - 运行测试"
-	@echo "  make test-cov      - 运行测试并生成覆盖率报告"
-	@echo "  make lint          - 代码检查"
-	@echo "  make format        - 代码格式化"
-	@echo "  make clean         - 清理构建文件"
-	@echo "  make build         - 构建分发包"
-	@echo "  make upload        - 上传到 PyPI 私库"
+	@echo "Available commands:"
+	@echo "  make install       - Install project"
+	@echo "  make install-dev   - Install development dependencies"
+	@echo "  make test          - Run tests"
+	@echo "  make test-cov      - Run tests with coverage report"
+	@echo "  make lint          - Code linting"
+	@echo "  make format        - Code formatting"
+	@echo "  make clean         - Clean build files"
+	@echo "  make build         - Build distribution package"
+	@echo "  make upload        - Upload to private PyPI"
 
 install:
 	pip install -e .
@@ -41,4 +41,3 @@ build:
 
 upload:
 	twine upload --repository private dist/*
-

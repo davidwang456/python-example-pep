@@ -11,7 +11,7 @@ cache:
     - .cache/pip
     - venv/
 
-# 测试阶段
+# Test stage
 test:python3.8:
   stage: test
   image: python:3.8
@@ -127,7 +127,7 @@ test:python3.12:
     - master
     - develop
 
-# 代码质量检查
+# Code quality check
 lint:
   stage: test
   image: python:3.11
@@ -144,7 +144,7 @@ lint:
     - master
     - develop
 
-# 构建阶段
+# Build stage
 build:
   stage: build
   image: python:3.11
@@ -163,7 +163,7 @@ build:
     - main
     - master
 
-# 部署阶段 - 发布到 PyPI 私库
+# Deploy stage - Publish to private PyPI
 deploy:pypi:
   stage: deploy
   image: python:3.11
@@ -180,7 +180,7 @@ deploy:pypi:
           --password "$PYPI_PASSWORD" \
           dist/*
       else
-        echo "PYPI_REPOSITORY_URL 未设置，跳过发布"
+        echo "PYPI_REPOSITORY_URL not set, skipping publish"
       fi
   only:
     - tags

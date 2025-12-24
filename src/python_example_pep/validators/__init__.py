@@ -1,4 +1,4 @@
-"""数据验证模块。"""
+"""Data validation module."""
 
 from python_example_pep.validators.validators import (
     ValidationError,

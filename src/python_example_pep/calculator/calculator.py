@@ -1,25 +1,25 @@
-"""计算器模块。"""
+"""Calculator module."""
 
 from typing import List, Union
 
 
 class Calculator:
-    """简单计算器类。"""
+    """Simple calculator class."""
 
     def __init__(self):
-        """初始化计算器。"""
+        """Initialize calculator."""
         self.history: List[str] = []
 
     def add(self, a: Union[int, float], b: Union[int, float]) -> Union[int, float]:
         """
-        加法运算。
+        Addition operation.
 
         Args:
-            a: 第一个数
-            b: 第二个数
+            a: First number
+            b: Second number
 
         Returns:
-            两数之和
+            Sum of the two numbers
 
         Examples:
             >>> calc = Calculator()
@@ -32,14 +32,14 @@ class Calculator:
 
     def subtract(self, a: Union[int, float], b: Union[int, float]) -> Union[int, float]:
         """
-        减法运算。
+        Subtraction operation.
 
         Args:
-            a: 被减数
-            b: 减数
+            a: Minuend
+            b: Subtrahend
 
         Returns:
-            两数之差
+            Difference of the two numbers
 
         Examples:
             >>> calc = Calculator()
@@ -52,14 +52,14 @@ class Calculator:
 
     def multiply(self, a: Union[int, float], b: Union[int, float]) -> Union[int, float]:
         """
-        乘法运算。
+        Multiplication operation.
 
         Args:
-            a: 第一个数
-            b: 第二个数
+            a: First number
+            b: Second number
 
         Returns:
-            两数之积
+            Product of the two numbers
 
         Examples:
             >>> calc = Calculator()
@@ -72,17 +72,17 @@ class Calculator:
 
     def divide(self, a: Union[int, float], b: Union[int, float]) -> Union[int, float]:
         """
-        除法运算。
+        Division operation.
 
         Args:
-            a: 被除数
-            b: 除数
+            a: Dividend
+            b: Divisor
 
         Returns:
-            两数之商
+            Quotient of the two numbers
 
         Raises:
-            ZeroDivisionError: 如果除数为 0
+            ZeroDivisionError: If divisor is 0
 
         Examples:
             >>> calc = Calculator()
@@ -90,21 +90,21 @@ class Calculator:
             3.0
         """
         if b == 0:
-            raise ZeroDivisionError("除数不能为 0")
+            raise ZeroDivisionError("Divisor cannot be 0")
         result = a / b
         self.history.append(f"{a} / {b} = {result}")
         return result
 
     def power(self, base: Union[int, float], exponent: Union[int, float]) -> Union[int, float]:
         """
-        幂运算。
+        Power operation.
 
         Args:
-            base: 底数
-            exponent: 指数
+            base: Base number
+            exponent: Exponent
 
         Returns:
-            幂运算结果
+            Result of power operation
 
         Examples:
             >>> calc = Calculator()
@@ -116,28 +116,28 @@ class Calculator:
         return result
 
     def clear_history(self) -> None:
-        """清空计算历史。"""
+        """Clear calculation history."""
         self.history.clear()
 
     def get_history(self) -> List[str]:
         """
-        获取计算历史。
+        Get calculation history.
 
         Returns:
-            计算历史记录列表
+            List of calculation history records
         """
         return self.history.copy()
 
 
 def calculate_sum(numbers: List[Union[int, float]]) -> Union[int, float]:
     """
-    计算列表中所有数字的和。
+    Calculate sum of all numbers in a list.
 
     Args:
-        numbers: 数字列表
+        numbers: List of numbers
 
     Returns:
-        所有数字的和
+        Sum of all numbers
 
     Examples:
         >>> calculate_sum([1, 2, 3, 4])
@@ -148,22 +148,22 @@ def calculate_sum(numbers: List[Union[int, float]]) -> Union[int, float]:
 
 def calculate_average(numbers: List[Union[int, float]]) -> float:
     """
-    计算列表中所有数字的平均值。
+    Calculate average of all numbers in a list.
 
     Args:
-        numbers: 数字列表
+        numbers: List of numbers
 
     Returns:
-        平均值
+        Average value
 
     Raises:
-        ValueError: 如果列表为空
+        ValueError: If list is empty
 
     Examples:
         >>> calculate_average([1, 2, 3, 4])
         2.5
     """
     if not numbers:
-        raise ValueError("列表不能为空")
+        raise ValueError("List cannot be empty")
     return sum(numbers) / len(numbers)
 
