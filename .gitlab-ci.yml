@@ -5,18 +5,44 @@ stages:
 
 variables:
   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  # Note: PIP_CONFIG_FILE should be defined as a File type variable in GitLab CI/CD settings
+  # GitLab will create a temporary file and set PIP_CONFIG_FILE to its path
+  # If not set, pip will use default configuration
 
 cache:
   paths:
     - .cache/pip
     - venv/
 
+# Shared script to setup pip configuration from GitLab CI/CD file variable
+.pip_config_setup: &pip_config_setup
+  - |
+    # Copy pip config from GitLab CI/CD file type variable to project root
+    # When PIP_CONFIG_FILE is defined as a File type variable in GitLab CI/CD,
+    # GitLab creates a temporary file and sets PIP_CONFIG_FILE environment variable to its path
+    if [ -n "$PIP_CONFIG_FILE" ] && [ -f "$PIP_CONFIG_FILE" ]; then
+      # Save the original path for logging
+      ORIGINAL_CONFIG="$PIP_CONFIG_FILE"
+      # Copy the config file to project root
+      cp "$PIP_CONFIG_FILE" "$CI_PROJECT_DIR/pip.conf"
+      # Set PIP_CONFIG_FILE to point to the copied file in project root
+      export PIP_CONFIG_FILE="$CI_PROJECT_DIR/pip.conf"
+      echo "✓ Using pip configuration from GitLab CI/CD file variable"
+      echo "  Original file: $ORIGINAL_CONFIG"
+      echo "  Copied to: $CI_PROJECT_DIR/pip.conf"
+      echo "  PIP_CONFIG_FILE is now set to: $PIP_CONFIG_FILE"
+    else
+      echo "ℹ PIP_CONFIG_FILE not set or file not found, using default pip configuration"
+      echo "  To use custom pip config, set PIP_CONFIG_FILE as a File type variable in GitLab CI/CD settings"
+    fi
+  - python -m pip install --upgrade pip
+
 # Test stage
 test:python3.8:
   stage: test
   image: python:3.8
   before_script:
-    - python -m pip install --upgrade pip
+    - *pip_config_setup
     - pip install -e ".[dev]"
   script:
     - pytest --cov=src --cov-report=term-missing --cov-report=xml --cov-report=html
@@ -39,7 +65,7 @@ test:python3.9:
   stage: test
   image: python:3.9
   before_script:
-    - python -m pip install --upgrade pip
+    - *pip_config_setup
     - pip install -e ".[dev]"
   script:
     - pytest --cov=src --cov-report=term-missing --cov-report=xml --cov-report=html
@@ -62,7 +88,7 @@ test:python3.10:
   stage: test
   image: python:3.10
   before_script:
-    - python -m pip install --upgrade pip
+    - *pip_config_setup
     - pip install -e ".[dev]"
   script:
     - pytest --cov=src --cov-report=term-missing --cov-report=xml --cov-report=html
@@ -85,7 +111,7 @@ test:python3.11:
   stage: test
   image: python:3.11
   before_script:
-    - python -m pip install --upgrade pip
+    - *pip_config_setup
     - pip install -e ".[dev]"
   script:
     - pytest --cov=src --cov-report=term-missing --cov-report=xml --cov-report=html
@@ -108,7 +134,7 @@ test:python3.12:
   stage: test
   image: python:3.12
   before_script:
-    - python -m pip install --upgrade pip
+    - *pip_config_setup
     - pip install -e ".[dev]"
   script:
     - pytest --cov=src --cov-report=term-missing --cov-report=xml --cov-report=html
@@ -132,7 +158,7 @@ lint:
   stage: test
   image: python:3.11
   before_script:
-    - python -m pip install --upgrade pip
+    - *pip_config_setup
     - pip install -e ".[dev]"
   script:
     - ruff check src tests
@@ -149,7 +175,7 @@ build:
   stage: build
   image: python:3.11
   before_script:
-    - python -m pip install --upgrade pip
+    - *pip_config_setup
     - pip install build
   script:
     - python -m build
@@ -170,7 +196,7 @@ deploy:pypi:
   dependencies:
     - build
   before_script:
-    - python -m pip install --upgrade pip
+    - *pip_config_setup
     - pip install twine
   script:
     - |

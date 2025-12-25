@@ -34,8 +34,8 @@ def main():
     required_files = [
         "pyproject.toml",
         "README.md",
-        "src/python_example_pep/__init__.py",
-        "src/python_example_pep/example/example.py",
+        "src/example_pep/__init__.py",
+        "src/example_pep/example/example.py",
     ]
     
     print("\nChecking required files...")

@@ -1,6 +1,6 @@
 """Utility functions module."""
 
-from python_example_pep.utils.utils import (
+from example_pep.utils.utils import (
     ensure_dir,
     get_file_size,
     join_paths,

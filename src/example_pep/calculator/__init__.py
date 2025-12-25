@@ -1,6 +1,6 @@
 """Calculator module."""
 
-from python_example_pep.calculator.calculator import (
+from example_pep.calculator.calculator import (
     Calculator,
     calculate_average,
     calculate_sum,

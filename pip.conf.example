@@ -1,0 +1,13 @@
+[global]
+# Set default index URL to private PyPI
+# Replace with your actual private PyPI URL and credentials
+index-url = https://username:password@pypi.my-company.com/simple
+
+# (Optional but recommended) Set official PyPI as fallback
+# This way, if a package (like requests) is not found in private PyPI,
+# pip will automatically search in the official PyPI
+extra-index-url = https://pypi.org/simple
+
+# (Optional but recommended) Set trusted host for private PyPI to avoid SSL warnings
+trusted-host = pypi.my-company.com
+

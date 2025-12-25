@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from python_example_pep import utils
+from example_pep import utils
 
 
 class TestEnsureDir:

@@ -17,7 +17,7 @@ A modern Python project example following PEP 517/518/621 standards.
 ```
 python-example-pep/
 ├── src/
-│   └── python_example_pep/     # Main package
+│   └── example_pep/            # Main package
 │       ├── __init__.py
 │       ├── example/             # Example module (separate directory)
 │       │   ├── __init__.py
@@ -245,11 +245,43 @@ The project includes GitLab CI configuration (`.gitlab-ci.yml`), containing the 
 
 Configure the following CI/CD variables in GitLab project settings:
 
+**For pip configuration (used during dependency installation):**
+- `PIP_CONFIG_FILE`: (File type variable) Pip configuration file
+  - **Variable type**: **File** (must be File type, not Variable type)
+  - **How it works**: 
+    - GitLab creates a temporary file with the content you upload
+    - Sets `PIP_CONFIG_FILE` environment variable to the temporary file path
+    - CI pipeline automatically copies this file to `$CI_PROJECT_DIR/pip.conf`
+    - Pip uses the copied `pip.conf` file during the build process
+  - **File format**: Should contain pip configuration in INI format (see `pip.conf.example`)
+  - **Example content**:
+    ```ini
+    [global]
+    index-url = https://username:password@pypi.my-company.com/simple
+    extra-index-url = https://pypi.org/simple
+    trusted-host = pypi.my-company.com
+    ```
+
+**For publishing to PyPI:**
 - `PYPI_REPOSITORY_URL`: Private PyPI URL (e.g., `https://your-private-pypi.com/simple/`)
 - `PYPI_USERNAME`: PyPI username
 - `PYPI_PASSWORD`: PyPI password or token
 
-Configuration path: GitLab Project → Settings → CI/CD → Variables
+**Configuration steps:**
+1. Go to GitLab Project → Settings → CI/CD → Variables
+2. Click "Add variable"
+3. Set `PIP_CONFIG_FILE` as:
+   - **Key**: `PIP_CONFIG_FILE`
+   - **Type**: **File** (important! Select File type, not Variable type)
+   - **Value**: Paste your pip configuration content (see `pip.conf.example`)
+   - **Protected**: ✓ (recommended)
+   - **Masked**: ✗ (File type variables cannot be masked)
+4. Save the variable
+
+**Note:** 
+- The CI pipeline will automatically copy the file to `$CI_PROJECT_DIR/pip.conf` during each build
+- If `PIP_CONFIG_FILE` is not set, pip will use default configuration
+- The configuration file format should match `pip.conf.example`
 
 ## License
 
@@ -260,3 +292,28 @@ MIT License
 - [PEP 517](https://peps.python.org/pep-0517/) - Build System Interface
 - [PEP 518](https://peps.python.org/pep-0518/) - Specifying Build Dependencies
 - [PEP 621](https://peps.python.org/pep-0621/) - Project Metadata Standard
+
+
+### Local pip Configuration (Optional)
+
+For local development, you can create a `pip.conf` file (see `pip.conf.example`):
+
+```ini
+[global]
+# Set default index URL to private PyPI
+index-url = https://username:password@pypi.my-company.com/simple
+
+# (Optional but recommended) Set official PyPI as fallback
+# This way, if a package (like requests) is not found in private PyPI,
+# pip will automatically search in the official PyPI
+extra-index-url = https://pypi.org/simple
+
+# (Optional but recommended) Set trusted host for private PyPI to avoid SSL warnings
+trusted-host = pypi.my-company.com
+```
+
+Place this file at:
+- Linux/macOS: `~/.pip/pip.conf` or `/etc/pip.conf`
+- Windows: `%APPDATA%\pip\pip.ini` or `%PROGRAMDATA%\pip\pip.ini`
+
+**Note:** In GitLab CI, the pip configuration is automatically created from CI/CD variables, so you don't need to commit this file.

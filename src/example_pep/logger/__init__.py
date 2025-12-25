@@ -1,6 +1,6 @@
 """Logging module."""
 
-from python_example_pep.logger.logger import LogLevel, Logger, get_logger
+from example_pep.logger.logger import LogLevel, Logger, get_logger
 
 __all__ = [
     "LogLevel",

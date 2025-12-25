@@ -1,7 +1,7 @@
 """Tests for example module."""
 
 import pytest
-from python_example_pep import example
+from example_pep import example
 
 
 def test_hello_default():

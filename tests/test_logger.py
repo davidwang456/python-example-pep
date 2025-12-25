@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from python_example_pep import logger
+from example_pep import logger
 
 
 class TestLogLevel:

@@ -7,7 +7,7 @@ This document demonstrates how to use the various modules of the project.
 ## Example Module (example)
 
 ```python
-from python_example_pep import example
+from example_pep import example
 
 # Greeting
 print(example.hello())  # Hello, World!
@@ -21,7 +21,7 @@ print(result)  # 5
 ## Utility Functions Module (utils)
 
 ```python
-from python_example_pep import utils
+from example_pep import utils
 from pathlib import Path
 
 # Ensure directory exists
@@ -51,7 +51,7 @@ print(joined)  # 'usr/local/bin'
 ## Data Validation Module (validators)
 
 ```python
-from python_example_pep import validators
+from example_pep import validators
 
 # Validate email
 if validators.validate_email("user@example.com"):
@@ -77,7 +77,7 @@ if validators.validate_range(5.0, 0.0, 10.0):
 ## Calculator Module (calculator)
 
 ```python
-from python_example_pep import calculator
+from example_pep import calculator
 
 # Use calculator class
 calc = calculator.Calculator()
@@ -106,7 +106,7 @@ average = calculator.calculate_average(numbers)  # 3.0
 ## Logging Module (logger)
 
 ```python
-from python_example_pep import logger
+from example_pep import logger
 
 # Create logger
 log = logger.Logger("my_app", level=logger.LogLevel.INFO)
@@ -137,7 +137,7 @@ app_logger.info("Application started")
 ## Complete Example
 
 ```python
-from python_example_pep import calculator, logger, validators
+from example_pep import calculator, logger, validators
 
 # Create logger
 log = logger.get_logger("calculator_app")

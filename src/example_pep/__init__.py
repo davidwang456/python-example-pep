@@ -2,7 +2,7 @@
 
 __version__ = "0.1.0"
 
-from python_example_pep import calculator, example, logger, utils, validators
+from example_pep import calculator, example, logger, utils, validators
 
 __all__ = [
     "__version__",

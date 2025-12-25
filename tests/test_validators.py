@@ -2,7 +2,7 @@
 
 import pytest
 
-from python_example_pep import validators
+from example_pep import validators
 
 
 class TestValidateEmail:

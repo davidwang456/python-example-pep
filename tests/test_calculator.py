@@ -2,7 +2,7 @@
 
 import pytest
 
-from python_example_pep import calculator
+from example_pep import calculator
 
 
 class TestCalculator:

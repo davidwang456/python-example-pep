@@ -1,6 +1,6 @@
 """Data validation module."""
 
-from python_example_pep.validators.validators import (
+from example_pep.validators.validators import (
     ValidationError,
     validate_email,
     validate_length,
